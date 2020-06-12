@@ -1,0 +1,97 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+apply plugin: "androidx.navigation.safeargs"
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+    dataBinding {
+        enabled = true
+    }
+    defaultConfig {
+        applicationId "com.johnnylee.mvvm_arch_injection"
+        minSdkVersion 22
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        def API_URL = "API_URL"
+        debug {
+            buildConfigField "String", API_URL, '""'
+        }
+        release {
+            buildConfigField "String", API_URL, '""'
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    kapt {
+        generateStubs = true
+    }
+}
+
+def retrofit_version = '2.6.0'
+def dagger2_version = '2.16'
+def lifecycle_version = '2.2.0'
+def coroutines_version = '1.3.4'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    // AndroidX Components
+    api 'androidx.appcompat:appcompat:1.3.0-alpha01'
+    api 'androidx.core:core-ktx:1.4.0-alpha01'
+    api 'androidx.constraintlayout:constraintlayout:1.1.3'
+    api 'androidx.recyclerview:recyclerview:1.2.0-alpha03'
+
+    // Retrofit
+    api "com.squareup.retrofit2:retrofit:$retrofit_version"
+    api "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    api "com.squareup.retrofit2:converter-moshi:$retrofit_version"
+    api 'com.squareup.retrofit2:converter-gson:2.4.0'
+
+    // Support Design
+    api 'com.google.android.material:material:1.1.0'
+
+    //MultiDex
+    api 'androidx.multidex:multidex:2.0.1'
+
+    //Coroutines
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+
+    // Dagger 2
+    api "com.google.dagger:dagger:$dagger2_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger2_version"
+
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    compileOnly "org.glassfish:javax.annotation:3.1.1"
+
+    // ViewModel and LiveData
+    api "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    api "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.0-alpha03"
+    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+
+    // OkHttp3
+    api 'com.squareup.okhttp3:logging-interceptor:3.12.0'
+
+    // Glide
+    api 'com.github.bumptech.glide:glide:4.6.1'
+
+    //Tests
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.3.0-alpha01'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha01'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.1.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.1.0'
+}
