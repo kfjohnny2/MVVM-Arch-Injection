@@ -6,6 +6,8 @@ import dagger.Component
 import javax.inject.Singleton
 
 /**
+ * @author Johnnylee Bryan Marques da Rocha
+ *
  * Component providing inject() methods for ViewModels.
  */
 @Singleton

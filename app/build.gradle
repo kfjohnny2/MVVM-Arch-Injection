@@ -23,11 +23,23 @@ android {
     }
     buildTypes {
         def API_URL = "API_URL"
+        def IDENTITY_URL = "IDENTITY_URL"
+        def API_CLIENT_ID = "API_CLIENT_ID"
+        def API_CLIENT_SECRET = "API_CLIENT_SECRET"
+        
         debug {
             buildConfigField "String", API_URL, '""'
+            //URL for authentication services
+            buildConfigField "String", IDENTITY_URL, '""'
+            buildConfigField "String", API_CLIENT_ID, '""'
+            buildConfigField "String", API_CLIENT_SECRET, '""'
         }
         release {
             buildConfigField "String", API_URL, '""'
+            //URL for authentication services
+            buildConfigField "String", IDENTITY_URL, '""'
+            buildConfigField "String", API_CLIENT_ID, '""'
+            buildConfigField "String", API_CLIENT_SECRET, '""'
 
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'

@@ -1,8 +1,8 @@
 package com.johnnylee.mvvm_arch_injection.network
 
 import com.johnnylee.mvvm_arch_injection.model.DataSample
-import com.johnnylee.mvvm_arch_injection.util.PATH_DATA_SAMPLE
-import com.johnnylee.mvvm_arch_injection.util.PATH_DATA_SAMPLE_POST
+import com.johnnylee.mvvm_arch_injection.util.helpers.PATH_DATA_SAMPLE
+import com.johnnylee.mvvm_arch_injection.util.helpers.PATH_DATA_SAMPLE_POST
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
