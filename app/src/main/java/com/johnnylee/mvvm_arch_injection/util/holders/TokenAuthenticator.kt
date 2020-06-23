@@ -24,13 +24,16 @@ import okhttp3.Route
 class TokenAuthenticator(private val tokenApi: TokenApi) : Authenticator {
     override fun authenticate(route: Route?, response: Response): Request? {
         val refreshToken = getRefreshToken()
-        var retrofitResponse: retrofit2.Response<Token>? = null
-        if (System.currentTimeMillis() <= getPreferenceLong(EXPIRES_IN))
-            return null
-
-        if (!refreshToken.isNullOrEmpty()) {
-            retrofitResponse = tokenApi.refreshToken(refresh_token = refreshToken).execute()
+        val retrofitResponse: retrofit2.Response<Token>?
+        when{
+            System.currentTimeMillis() <= getPreferenceLong(EXPIRES_IN) -> return null
         }
+
+        retrofitResponse = when {
+            !refreshToken.isNullOrEmpty() -> tokenApi.refreshToken(refresh_token = refreshToken).execute()
+            else -> null
+        }
+
         if (retrofitResponse != null) {
             val grant = retrofitResponse.body()!!
 
@@ -43,6 +46,7 @@ class TokenAuthenticator(private val tokenApi: TokenApi) : Authenticator {
                     REFRESH_TOKEN, true, it)
                 setPreferences(time + (grant.expiresIn * 1000),
                     EXPIRES_IN, true, it)
+                //Call previous request with the new token
                 return response.request().newBuilder().header("Authorization", "Bearer " + grant.accessToken).build()
             }
 
